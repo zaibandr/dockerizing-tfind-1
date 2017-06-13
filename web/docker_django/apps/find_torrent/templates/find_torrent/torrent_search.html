@@ -1,0 +1,41 @@
+{% extends 'find_torrent/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="row center-block">
+    <div class="container col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+
+    {% include "find_torrent/search.html" %}
+
+
+
+    {% if torrents %}
+
+            <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                  <th>Title</th>
+                  <th><p class="text-right">Provider</p></th>
+                  <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for torrent in torrents %}
+                <tr>
+                    <td>{{ torrent.title }}</td>
+                    <td><a href="{{ torrent.provider_url }}"><p class="text-right">{{ torrent.provider }}</p></a> </td>
+                    <td><a href="{{ torrent.magnet }}"><img src="http://s.rutor.info/i/m.png" alt="M"></a></td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+            </table>
+
+    {% else %}
+        {% if get.q %}
+            <h2 align="center">Sorry, not found: {{ get.q }} </h2>
+        {% endif %}
+    {% endif %}
+    </div>
+    </div>
+{% endblock %}

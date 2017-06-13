@@ -1,0 +1,22 @@
+{% extends 'find_torrent/base.html' %}
+{% load static %}
+
+{% block title %}
+    TFind - торрент поисковик *beta:: Найти и скачать торрент бесплатно
+{% endblock %}
+
+
+{% block content %}
+    <div class="container col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 vcenter">
+        <div class="col-xs-12 col-md-10 col-lg-9 col-md-offset-1 vcenter">
+            <div style="height:16em"></div>
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static "img/logo.png" %}">
+                </a>
+            </div>
+            {% include "find_torrent/search.html" %}
+        </div>
+    </div>
+{% endblock %}
+

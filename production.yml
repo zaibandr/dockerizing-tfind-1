@@ -1,0 +1,54 @@
+web:
+  restart: always
+  build: ./web
+  expose:
+    - "8000"
+  links:
+    - postgres:postgres
+    - redis:redis
+  volumes:
+    - webdata_app:/usr/src/app
+    - webdata_static:/usr/src/app/static
+  env_file: .env_prod
+  environment:
+    DEBUG: 'true'
+  command: /usr/local/bin/gunicorn docker_django.wsgi:application -w 2 -b :8000 --reload
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - web
+  links:
+    - web:web
+
+postgres:
+  restart: always
+  image: postgres:latest
+  ports:
+    - "5432:5432"
+  volumes:
+    - pgdata:/var/lib/postgresql/data/
+
+elastic:
+  restart: always
+  image: elasticsearch:2.4.4
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - esdata:/usr/share/elasticsearch/data
+
+redis:
+  restart: always
+  image: redis:latest
+  mem_limit: 350m
+  command: redis-server --requirepass redis
+  ports:
+    - "6379:6379"
+  volumes:
+    - redisdata:/data

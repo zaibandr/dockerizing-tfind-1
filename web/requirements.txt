@@ -1,0 +1,10 @@
+Django
+gunicorn
+django-haystack
+elasticsearch
+psycopg2
+django-grappelli
+django-tables2
+django-bootstrap3
+redis
+django-cacheops

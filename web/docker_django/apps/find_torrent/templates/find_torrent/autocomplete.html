@@ -1,0 +1,23 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
+
+<script type="text/javascript">
+var Trend = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+    url: '{% url 'autocomplete' %}?q=%QUERY',
+        wildcard: '%QUERY',
+  }
+});
+
+$('.form-control').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 2
+}, {
+    limit: 7,
+    display: 'title',
+    source: Trend
+});
+</script>
