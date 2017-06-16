@@ -1,6 +1,4 @@
 import os
-
-os.environ['SECRET_KEY']
 import psycopg2
 
 conn = psycopg2.connect(
